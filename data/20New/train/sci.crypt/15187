@@ -1,1 +1,0 @@
- compress | crypt foo | des -e -k foo
