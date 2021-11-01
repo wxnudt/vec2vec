@@ -57,4 +57,4 @@ The output are like below:
 
 ### Miscellaneous
 
-Please send any questions you might have about the code and/or the algorithm to xiangwangcn@163.com.
+Please send any questions you might have about the code and/or the algorithm to xiangwangcn@nudt.edu.cn.
