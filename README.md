@@ -2,6 +2,12 @@
 
 This repository provides a reference implementation of vec2vec, which can reduce the dimension to matrix.
 
+For the algorithm of vec2vec, you can read the following paper:
+
+```
+Wang X, Li X, Zhu J, et al. A Local Similarity-Preserving Framework for Nonlinear Dimensionality Reduction with Neural Networks[C]//International Conference on Database Systems for Advanced Applications. Springer, Cham, 2021: 376-391.
+```
+
 
 ### Requirements
 Before starting this project, you must install requirements below.
