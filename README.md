@@ -5,7 +5,10 @@ This repository provides a reference implementation of vec2vec, which can reduce
 For the algorithm of vec2vec, you can read the following paper:
 
 ```
-Wang X, Li X, Zhu J, et al. A Local Similarity-Preserving Framework for Nonlinear Dimensionality Reduction with Neural Networks[C]//International Conference on Database Systems for Advanced Applications. Springer, Cham, 2021: 376-391.
+Xiang Wang, Xiaoyong Li, Junxing Zhu, et al. 
+A Local Similarity-Preserving Framework for Nonlinear Dimensionality Reduction with Neural Networks[C]. 
+International Conference on Database Systems for Advanced Applications (Dasfaa 2021). 
+Springer, Cham, 2021: 376-391.
 ```
 
 
