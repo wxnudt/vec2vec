@@ -66,20 +66,6 @@ def resizeSVHDShape(matrix):
     return svhd
 
 
-def parse_args():
-	'''
-	Parses the node2vec arguments.
-	'''
-	parser = argparse.ArgumentParser(description="Run LLE, LE and PCA Algorithm.")
-	parser.add_argument('--input', nargs='?', default='graph/karate.edgelist',
-	                    help='Input graph path')
-	parser.add_argument('--output', nargs='?', default='emb/karate.emb',
-	                    help='Embeddings path')
-	parser.add_argument('--dimensions', type=int, default=128,
-	                    help='Number of dimensions. Default is 128.')
-	return parser.parse_args()
-
-
 if __name__ == "__main__":
     #args = parse_args()
 
@@ -107,33 +93,9 @@ if __name__ == "__main__":
     x_train, y_train, x_test, y_test = read_data("D:/NSFC/project/data/MNIST/origData/mnistpklgz/mnist.pkl.gz")
     print("Load dataset MNIST finished...")
 
-    # x_train2, y_train2 = ds.load_svmlight_file('D:/NSFC/project/data/20NewLong/train.bow')
-    # x_train2, y_train2 = ds.load_svmlight_file('D:/NSFC/project/data/20New/20news.train.bow')
-    # x_train2, y_train2 = ds.load_svmlight_file('D:/NSFC/project/data/movie/train.bow')
-    # x_train2, y_train2 = ds.load_svmlight_file('D:/NSFC/project/data/GoogleSnippets/traintest.txt.bow')
-    # x_train2, y_train2 = ds.load_svmlight_file('/Users/renxl/Desktop/todo/re4/data-clear/GoogleSnippets/traintest.txt.bow')
-    # x_train2, y_train2 = ds.load_svmlight_file('D:/NSFC/project/data/stackoverflow/title_label.txt.bow')
-
-    # x_train, x_te, y_train, y_te = train_test_split(x_train2, y_train2, train_size=500)
-
-
-    # x_train, y_train = unpickle("D:/NSFC/project/data/cifar10/cifar-10-batches-py/data_batch_1")
-
-    # print("Load dataset 20News finished...")
-
     program = os.path.basename(sys.argv[0])
     logger = logging.getLogger(program)
 
-    # x_train=x_train[0:5000, :]
-    # y_train = y_train[0:5000]
-
-    # print(x_train2.shape)
-    # print(x_train2)
-    # x_train = x_train2.toarray()
-    # y_train = y_train2
-
-
-    # x_train=MinMaxScaler().fit_transform(x_train)
     x_train=x_train[0:5000, :]
     y_train = y_train[0:5000]
 
