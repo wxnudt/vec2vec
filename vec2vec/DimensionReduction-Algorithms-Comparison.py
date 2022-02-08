@@ -43,17 +43,6 @@ def load_data(path):
     x_train.todense()
     return x_train,y_train
 
-# def load_mnist_dataset():
-#     (x_train, x_train_label), (x_test, y_test) = mnist.load_data()
-#     print(x_train_label)
-#
-#     x_train = x_train.astype('float32') / 255. - 0.5  # minmax_normalized
-#     x_test = x_test.astype('float32') / 255. - 0.5  # minmax_normalized
-#     x_train = x_train.reshape(x_train.shape[0], -1)
-#     x_test = x_test.reshape(x_test.shape[0], -1)
-#     print(x_train.shape)
-#     print(x_test.shape)
-#     return x_train, x_train_label, x_test, y_test
 
 
 def read_data(data_file):
@@ -166,15 +155,7 @@ if __name__ == "__main__":
         models.append(Isomap(n_neighbors=num_neighbors, n_components=emb_size, n_jobs=multiprocessing.cpu_count()))
         models.append('matrix2vec')
 
-        model_names = ['lle', 'le', 'pca', 'MDS', 'ISOMAP', 'matrix2vec']  # names corresponding to models
-
-        # model_names = ['matrix2vec']  # names corresponding to models
-        # model_names = ['LLE', 'LE', 'PCA', 'matrix2vec']  # names corresponding to models
-
-        # model_names=['MDS','ISOMAP','matrix2vec'] # names corresponding to models
-
-        # model_names=['MDS','ISOMAP'] # names corresponding to models
-        # model_names = ['LLE','pca']
+        model_names = ['lle', 'le', 'pca', 'MDS', 'ISOMAP', 'matrix2vec']  # names corresponding to model
 
 
         for index, embedding in enumerate(models):
@@ -192,26 +173,10 @@ if __name__ == "__main__":
             #scale
             X_transformed=scale(X_transformed)
 
-            # print(X_transformed)
-            # if(len(X_transformed)==len(y_train)):
-            #     #Combine the array X_transformed and label
-            #     x_data_label=[]
-            #     for in2,item in enumerate(X_transformed):
-            #         itemTemp=[]
-            #         for in3, val in enumerate(item):
-            #             pos=in3+1
-            #             itemTemp.append(str(pos)+":"+'{:01.6f}'.format(val))
-            #
-            #         x_data_label.append(np.append('{:g}'.format(y_train[in2]),itemTemp))
-                    #print(np.append('{:g}'.format(label[in2]),itemTemp))
-
-    #        outputpath=args.output+'.'+model_names[index]+'.emb'+str(emb_size)+'.neigh'+str(num_neighbors)+'.sort.tmp'
-            #outputpath="D:/NSFC/project/data/MNIST/result/train"+'.'+model_names[index]+'.emb'+str(emb_size)+'.neigh'+str(num_neighbors)+'.sort.tmp'
-            # np.savetxt(outputpath, x_data_label, fmt="%s")
+            
             print('Model '+model_names[index]+' Finished in '+str(end-start)+" s.")
 
             #Using KNN classifier to test the result with cross_validation
-            # x_tr, x_te, y_tr, y_te = train_test_split(X_transformed, y_train, test_size=0.1)
             knn = KNeighborsClassifier()
             param = {"n_neighbors": [1, 3, 5, 7, 11]}  # 构造一些参数的值进行搜索 (字典类型，可以有多个参数)
             gc = GridSearchCV(knn, param_grid=param, cv=4)
@@ -221,53 +186,3 @@ if __name__ == "__main__":
             scores = cross_val_score(knn, X_transformed, y_train, cv=4)
             print("交叉验证Accuracy： ", scores)
             print("Accuracy: %0.4f (+/- %0.4f)" % (scores.mean(), scores.std() * 2))
-
-            #print("在测试集上准确率：", gc.score(x_te, y_te))  # 0.432624113475
-            #print("在交叉验证当中最好的结果：", gc.best_score_)  # 0.390684110971 并没有使用测试集。(验证集是从训练集中分的)
-            #print("选择最好的模型是：", gc.best_estimator_)  # KNeighborsClassifier(algorithm="auto", n_neighbors=10)
-            #print("每个超参数每次交叉验证的结果：", gc.cv_results_)
-            #knn.predict(x_te)
-            #print("最优参数的结果是： ",knn.score(x_te,y_te))
-
-            # scores = cross_val_score(knn, X_transformed, y_train, cv=4)
-            # print("交叉验证Accuracy： ",scores)
-            # print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
-            # print("train_accuracy :" + str(knn.score(X_transformed, y_train)))
-
-            # print("Begin to search for better parameters...")
-            # time_svc_begin = datetime.datetime.now()
-            # clf = svm.SVC()
-            # # tuned_parameters = [{'kernel': ['rbf'], 'gamma': [1e-4,1e-3, 0.01,0.1,1],
-            # #         #                              'C': [1]},
-            # #         #                              {'kernel': ['linear'], 'C': [1],'gamma': [1e-4,1e-3, 0.01,0.1,1]}]
-            # tuned_parameters = [
-            #     {'kernel': ['linear'], 'C': [1, 2, 8, 32, 128, 512]}]
-            # # tuned_parameters = [
-            # #     {'kernel': ['linear'], 'C': [2, 8, 32, 128, 512, 2048, 8192],
-            # #      'gamma': [0.0078125, 0.03125, 0.125, 0.5]}]
-            # clf = GridSearchCV(svm.SVC(), tuned_parameters, cv=4, n_jobs=multiprocessing.cpu_count()-1)
-            # # clf = GridSearchCV(svm.SVC(), tuned_parameters, cv=4, n_jobs=multiprocessing.cpu_count() - 1, verbose=5)
-            # clf.fit(X_transformed, y_train)
-            # svc=clf.best_estimator_
-            # time_svc_end = datetime.datetime.now()
-            # print("Classifier SVC Finished in " + str(time_svc_end - time_svc_begin) + " s.")
-            # print("The best parameter is：kernel="+str(svc.kernel)+" C="+str(svc.C)+" gamma="+str(svc._gamma))
-            # #
-            # #
-            # scores2 = cross_val_score(svc, X_transformed, y_train, cv=4)
-            # time_svc_end = datetime.datetime.now()
-            # print("Classifier SVC Finished in " + str(time_svc_end - time_svc_begin) + " s.")
-            # print("LinearSVC Cross validation Accuracy： ", scores2)
-            # print("Accuracy: %0.4f (+/- %0.4f)" % (scores2.mean(), scores2.std() * 2))
-
-            # para_c_list= [2, 8, 32, 128, 512, 32768]
-            # # para_gamma_list=[0.0078125, 0.03125, 0.125, 0.5]
-            # for para_c in para_c_list:
-            #     svc = svm.SVC(C=para_c,kernel='linear')
-            #
-            #     grid_search_time = datetime.datetime.now()
-            #     print("The best parameter is：kernel=" + str(svc.kernel) + " C=" + str(svc.C) + " gamma=" + str(svc.gamma) +" time="+str(grid_search_time))
-            #
-            #     scores = cross_val_score(svc, X_transformed, y_train, cv=4)
-            #     print("交叉验证Accuracy： ", scores)
-            #     print("Accuracy: %0.4f (+/- %0.4f)" % (scores.mean(), scores.std() * 2))
